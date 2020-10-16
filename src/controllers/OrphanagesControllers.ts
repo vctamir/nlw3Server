@@ -28,7 +28,7 @@ export default {
             open_on_weekends,
 
         } = req.body;
-
+        console.log(req.body)
         const orphanagesRepository = getRepository(Orphanage);
 
         const requestImages = req.files as Express.Multer.File[];
@@ -61,13 +61,13 @@ export default {
                     path: Yup.string().required()
                 }))
         })
-
+console.log('antes validado')
         await schema.validate(data,{
             abortEarly: false,
         })
         const orphanage = orphanagesRepository.create(data);
 
-
+console.log('validado')
         await orphanagesRepository.save(orphanage);
         res.status(201).json(Orphanage_views.render(orphanage));
 
